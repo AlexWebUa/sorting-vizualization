@@ -1,0 +1,20 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  background: url("../assets/images/stub.jpg") no-repeat fixed;
+}
+
+#stub {
+  color: #fff;
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  font-size: 48px;
+  transform: translate(-50%, -45%);
+}
