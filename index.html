@@ -6,12 +6,35 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Sorting visualization</title>
-    <link rel="stylesheet" href="css/style.css?v=0.0.1">
+    <link rel="stylesheet" href="css/style.min.css?v=0.0.1">
 
 </head>
 <body>
-<h1 id="stub">Site will be here soon...</h1>
 
+<header>
+    <h1>Sorting algorithms visualization</h1>
+</header>
+
+<main>
+    <div class="controls">
+        <div class="control-shuffle">
+            <span id="shuffle">Shuffle arrays</span>
+        </div>
+        <div class="control-size">
+            <span>Array size:</span>
+            <div class="btn-group">
+                <button class="btn" data-size="10">10</button>
+                <button class="btn" data-size="20">20</button>
+                <button class="btn" data-size="30">30</button>
+                <button class="btn" data-size="40">40</button>
+                <button class="btn" data-size="50">50</button>
+            </div>
+        </div>
+        <div class="control-about">
+            <span id="about-algorithms">About algorithms</span>
+        </div>
+    </div>
+</main>
 <script src="assets/libs/jquery-3.4.1.js"></script>
 <script src="js/animator.js?v=0.0.1"></script>
 </body>

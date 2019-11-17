@@ -1,0 +1,27 @@
+{
+  "name": "sorting-vizualization",
+  "version": "1.0.0",
+  "description": "**Visualization of the main sorting algorithms**",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexWebUa/sorting-vizualization.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlexWebUa/sorting-vizualization/issues"
+  },
+  "homepage": "https://github.com/AlexWebUa/sorting-vizualization#readme",
+  "devDependencies": {
+    "browser-sync": "^2.26.7",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.2"
+  },
+  "browserslist": "last 5 versions"
+}
