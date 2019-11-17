@@ -3,6 +3,7 @@ $space-gray: #4b4b4b;
 $main-blue: #007aa5;
 $accent-green: #3dbe8b;
 $pastel-red: #ef6461;
+$hover-gray: #e6e6e6;
 
 * {
   margin: 0;
@@ -11,9 +12,12 @@ $pastel-red: #ef6461;
   text-decoration: none;
   outline: none;
   font-family: "Roboto", sans-serif;
+  font-weight: unset;
 }
 
 body {
+  position: relative;
+  height: 100vh;
   max-width: 50%;
   margin: 0 auto;
   overflow: hidden;
@@ -28,12 +32,15 @@ body {
     border-radius: 0 0 40px 40px;
     h1 {
       font-size: 48px;
+      font-weight: 900;
     }
   }
 
   main {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     color: $main-blue;
     font-size: 18px;
     span {
@@ -49,7 +56,67 @@ body {
       align-items: center;
       justify-content: space-between;
       width: 66%;
+      .control-size {
+        text-align: center;
+        .btn-group {
+          display: flex;
+          .btn {
+            cursor: pointer;
+            display: inline-block;
+            background-color: transparent;
+            color: $main-blue;
+            font-size: 18px;
+            padding: 5px;
+            margin: 0 0 0 -1px;
+            border: 1px solid $main-blue;
+            &:hover{
+              background-color: $hover-gray;
+            }
+          }
+        }
+      }
     }
+
+    .sorting-frame {
+      width: 100%;
+      table {
+        width: 100%;
+        box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
+        border: 1px solid #d1d2d3;
+        border-collapse: collapse;
+        text-align: center;
+        .playable {
+          display: flex;
+          flex-direction: column;
+        }
+        td, th {
+          border: 1px solid #d1d2d3;
+          height: 70px;
+          &:hover {
+            background-color: $hover-gray;
+            color: lighten($main-blue, 15);
+          }
+        }
+      }
+    }
+
+    .useful-links {
+      margin: 5px;
+      align-self: baseline;
+      span {
+        text-decoration: underline;
+        font-style: italic;
+      }
+    }
+  }
+
+  footer {
+    color: $space-gray;
+    position: absolute;
+    margin: 0 auto;
+    width: 100%;
+    bottom: 5px;
+    text-align: center;
   }
 
 }
