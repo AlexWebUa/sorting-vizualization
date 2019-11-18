@@ -1,25 +1,21 @@
-console.log('I M HERE');
-
-function generateRandomArray(array, size, log) {
+function generateRandomArray(array, size) {
     let repeats = 0, rnd;
 
     while (array.length < size) {
         rnd = Math.floor(Math.random() * size) + 1;
         array.indexOf(rnd) === -1 ? array.push(rnd) : repeats++;
     }
-    if(log) console.log(`%c During random array generation ${repeats} repeats were encountered`, "font-size: 20px; font-weight: 600;");
     return array;
 }
 
 const mainArray = generateRandomArray([], 10, true);
-console.log('MAIN ARRAY\n', mainArray);
 
-var merge_sort = function(array){
+let merge_sort = function(array){
 
     function merge(left, right){
-        var result = [];
-        var il = 0;
-        var ir = 0;
+        let result = [];
+        let il = 0;
+        let ir = 0;
         while (il < left.length && ir < right.length){
             if (left[il] < right[ir]){
                 result.push(left[il++]);
@@ -36,17 +32,14 @@ var merge_sort = function(array){
         if (items.length < 2){
             return items;
         }
-        var middle = Math.floor(items.length / 2);
+        let middle = Math.floor(items.length / 2);
         //create two arrays
-        var left = items.slice(0, middle);
-        var right = items.slice(middle);
+        let left = items.slice(0, middle);
+        let right = items.slice(middle);
         return merge(merge_sort(left), merge_sort(right));
     }
     return merge_sort(array);
 };
-
-console.log('MERGE SORT\n', merge_sort(mainArray));
-
 
 //======================================================================
 
@@ -66,9 +59,7 @@ let selectionSort = (arr) => {
         }
     }
     return arr;
-}
-
-console.log('SELECTION SORT\n', selectionSort(mainArray));
+};
 
 //======================================================================
 
@@ -85,8 +76,6 @@ const insertionSort = arr => {
     }
     return arr;
 };
-
-console.log('INSERTION SORT\n', insertionSort(mainArray));
 
 //=================================================
 
@@ -106,5 +95,3 @@ let bubbleSort = (inputArr) => {
     } while (swapped);
     return inputArr;
 };
-
-console.log('BUBBLE SORT\n', bubbleSort(mainArray));

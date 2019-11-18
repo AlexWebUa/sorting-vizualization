@@ -20,7 +20,6 @@ body {
   height: 100vh;
   max-width: 50%;
   margin: 0 auto;
-  overflow: hidden;
   header {
     display: flex;
     justify-content: center;
@@ -56,6 +55,9 @@ body {
       align-items: center;
       justify-content: space-between;
       width: 66%;
+      .fa-random {
+        font-size: 14px;
+      }
       .control-size {
         text-align: center;
         .btn-group {
@@ -92,6 +94,7 @@ body {
         td, th {
           border: 1px solid #d1d2d3;
           height: 70px;
+          width: 16.6%;
           &:hover {
             background-color: $hover-gray;
             color: lighten($main-blue, 15);
@@ -111,11 +114,11 @@ body {
   }
 
   footer {
-    color: $space-gray;
     position: absolute;
-    margin: 0 auto;
+    color: $space-gray;
     width: 100%;
     bottom: 5px;
+    left: 0;
     text-align: center;
   }
 

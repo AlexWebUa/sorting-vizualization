@@ -6,8 +6,8 @@ const port = 3000;
 app.get('/', (request, response) => {
     response.sendFile(path.join(__dirname+'/index.html'));
 });
-app.get('/algorithms.js',function(req,res) {
-    res.sendFile(path.join(__dirname + '/algorithms.js'));
+app.get('/js/algorithms.js',function(req,res) {
+    res.sendFile(path.join(__dirname + '/js/algorithms.js'));
 });
 app.listen(port, (err) => {
     if (err) {
