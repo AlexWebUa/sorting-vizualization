@@ -3,7 +3,7 @@ console.log('I M HERE');
 const enums = require('./enums');
 const {SortTypes} = enums;
 const {ArrTypes} = enums;
-// ===========================================================================================
+// =======================================================================
 
 function mainSortingFunc(options) {
     console.log('options', options);
