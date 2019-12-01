@@ -1,12 +1,14 @@
 const express = require('express')
 const app = express();
 const path = require('path');
+const bodyParser = require('body-parser');
+const algorithms = require('./algorithms');
 const port = 3000;
-// const  __dirname = "F:\\Liza\\univer\\sorting-vizualization";
 app.get('/', (request, response) => {
     response.sendFile(path.join(__dirname+'/index.html'));
 })
 app.use(express.static(__dirname));
+app.use(bodyParser);
 
 app.listen(port, (err) => {
     if (err) {
@@ -14,3 +16,16 @@ app.listen(port, (err) => {
     }
     console.log('server is listening on' + port);
 })
+
+app.post('/sortingOrder', function (req, res) {
+    // req = {
+    //     arrLength: number,
+    //     sortType: SortTypes,
+    //     arrType: ArrTypes
+    // }
+    const  mainSortingFunc = algorithms.mainSortingFunc;
+    const response = JSON.stringify(mainSortingFunc(req.body));
+    res.send(response);
+})
+
+

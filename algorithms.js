@@ -1,17 +1,69 @@
 console.log('I M HERE');
 
-function generateRandomArray(array, size, log) {
+const enums = require('./enums');
+const {SortTypes} = enums;
+const {ArrTypes} = enums;
+// ===========================================================================================
+
+function mainSortingFunc(options) {
+    console.log('options', options);
+    return generateRandomArray(options.arrLength);
+}
+const req = {
+    arrLength: 10,
+    // sortType: SortTypes,
+    // arrType: ArrTypes
+}
+
+// ==================== TEST REQUEST =====================
+fetch('http://localhost:3000/sortingOrder', {
+    method : 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(req)
+}).then((res) => res.json())
+    .then((res) => console.log('MY RESULT FROM SERVER', res))
+    .catch((er) => console.log(er));
+
+//===========================================================
+function generateRandomArray(size) {
+    const array = [];
     let repeats = 0, rnd;
 
     while (array.length < size) {
         rnd = Math.floor(Math.random() * size) + 1;
         array.indexOf(rnd) === -1 ? array.push(rnd) : repeats++;
     }
-    if(log) console.log(`%c During random array generation ${repeats} repeats were encountered`, "font-size: 20px; font-weight: 600;");
     return array;
 }
+function generateStandartArray(size){
+    let arr = [];
+    for(let i = 1; i <= size; i++){
+        arr.push(i);
+    }
+    return arr;
+}
 
-const mainArray = generateRandomArray([], 10, true);
+const generateReverseArray = (size) => generateStandartArray(size).reverse();
+
+function generateAlmostSortedArray(size){
+    const arr = generateStandartArray(size);
+    arr[0] = size;
+    arr[size-1] = 1;
+    return arr;
+}
+
+function generateClusteredArray(size){
+    const arr = generateStandartArray(10);
+    const res = [];
+    for(let i = 1; i <= size / 10; i++){
+        res.concat(arr);
+    }
+    return res;
+}
+
+const mainArray = generateRandomArray(10);
 console.log('MAIN ARRAY\n', mainArray);
 
 let mergeSort = function(inputArray){
@@ -272,4 +324,5 @@ let shellSort = function(inputArr){
     return array;
 };
 
+module.exports.mainSortingFunc = mainSortingFunc;
 // console.log('SHELL SORT \n', shellSort(mainArray));
