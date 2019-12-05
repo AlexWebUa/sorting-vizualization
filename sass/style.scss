@@ -21,9 +21,12 @@ body {
   max-width: 50%;
   margin: 0 auto;
   header {
+    padding: 0 10px;
+    box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
     width: 100%;
     height: 80px;
     background-color: $light-blue;
@@ -114,13 +117,29 @@ body {
   }
 
   footer {
-    position: absolute;
+    position: sticky;
     color: $space-gray;
     width: 100%;
-    bottom: 5px;
+    top: 100%;
+    padding-bottom: 5px;
     left: 0;
     text-align: center;
   }
 
 }
 
+@media screen and (max-width: 1440px) {
+  body header {
+    h1 {
+      font-size: 2.5em;
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  body header {
+    h1 {
+      font-size: 32px;
+    }
+  }
+}
