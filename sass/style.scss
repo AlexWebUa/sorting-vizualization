@@ -5,6 +5,19 @@ $accent-green: #3dbe8b;
 $pastel-red: #ef6461;
 $hover-gray: #e6e6e6;
 
+@font-face{
+  font-family:"fontawesome";
+  font-style:normal;
+  font-weight:400;
+  font-display:auto;
+  src:url(../assets/webfonts/fa-solid-900.eot);
+  src: url(../assets/webfonts/fa-solid-900.eot?#iefix) format("embedded-opentype"),
+  url(../assets/webfonts/fa-solid-900.woff2) format("woff2"),
+  url(../assets/webfonts/fa-solid-900.woff) format("woff"),
+  url(../assets/webfonts/fa-solid-900.ttf) format("ttf"),
+  url(../assets/webfonts/fa-solid-900.svg#fontawesome) format("svg");
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -45,6 +58,22 @@ body {
     align-items: center;
     color: $main-blue;
     font-size: 18px;
+    .fas {
+      -moz-osx-font-smoothing:grayscale;
+      -webkit-font-smoothing:antialiased;
+      display:inline-block;
+      font-style:normal;
+      font-variant:normal;
+      text-rendering:auto;
+      line-height:1;
+      font-family: "fontawesome";
+    }
+    .fa-play:before {
+      content: "\f04b";
+    }
+    .fa-random:before {
+      content:"\f074";
+    }
     span {
       cursor: pointer;
       &:hover {
@@ -91,7 +120,11 @@ body {
         border-collapse: collapse;
         text-align: center;
         .playable {
+          height: 100%;
           display: flex;
+          cursor: pointer;
+          justify-content: center;
+          align-items: center;
           flex-direction: column;
         }
         td, th {
