@@ -1,16 +1,130 @@
-function generateRandomArray(array, size) {
-    let repeats = 0, rnd;
+const SortTypes = Object.freeze({
+    ALL: 0,
+    BUBBLE: 1,
+    SHAKER: 2,
+    QUICK: 3,
+    COMB: 4,
+    SELECTION: 5,
+    INSERTION: 6,
+    SHELL: 7,
+    MERGE: 8
+});
+
+const ArrTypes = Object.freeze({
+    ALL: 0,
+    RANDOM: 1,
+    REVERSED: 2,
+    CLUSTERED: 3,
+    ALMOST_SORTED: 4,
+    FEW_UNIQUE: 5
+});
+
+
+
+
+
+
+function mainSortingFunc(options) {
+    console.log('options', options);
+    return generateRandomArray(options.arrLength);
+}
+
+const req = {
+    arrLength: 10,
+    sortType: SortTypes,
+    arrType: ArrTypes
+};
+
+// ==================== TEST REQUEST =====================
+fetch('http://localhost:3000/sortingOrder', {
+    method : 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(req)
+}).then((res) => res.json())
+    .then((res) => console.log('MY RESULT FROM SERVER', res))
+    .catch((er) => console.log(er));
+
+
+
+
+/* Generating arrays */
+
+function generateRandomArray(size) {
+    const array = [];
+    let rnd;
 
     while (array.length < size) {
         rnd = Math.floor(Math.random() * size) + 1;
-        array.indexOf(rnd) === -1 ? array.push(rnd) : repeats++;
+        if (array.indexOf(rnd) === -1) array.push(rnd);
     }
+
     return array;
 }
 
-const mainArray = generateRandomArray([], 10, true);
+function reverseArray(arr) {
+    let newArr = [];
+    for(let i = arr.length - 1; i >= 0; i--) {
+        newArr.push(arr[i]);
+    }
 
-let merge_sort = function(array){
+    return newArr;
+}
+
+function generateStandartArray(size){
+    let arr = [];
+    for(let i = 1; i <= size; i++) arr.push(i);
+
+    return arr;
+}
+
+const generateReverseArray = (size) => {
+    let arr = [];
+    for(let i = size; i > 0; i--) arr.push(i);
+
+    return arr;
+};
+
+function generateClusteredArray(size) {
+    const cluster = size/10;
+    let tmp = generateRandomArray(size/cluster);
+    let res = [];
+
+    for(let i = 0; i < tmp.length; i++) {
+        for(let j = (tmp[i]*cluster); j < ((tmp[i]*cluster) + cluster); j++) {
+            res.push(j-(cluster-1));
+        }
+    }
+
+    return res;
+}
+
+function generateAlmostSortedArray(size){
+    const arr = generateStandartArray(size);
+    arr[0] = size;
+    arr[size-1] = 1;
+
+    return arr;
+}
+
+function generateFewUniqueArray(size) {
+    const cluster = size/10;
+    let tmp = generateRandomArray(cluster);
+    let tmp_rev = reverseArray(tmp);
+    let res = [];
+
+    for(let i = 0; i < size/cluster; i++) {
+        if(i%2) res = [...res, ...tmp];
+        else res.concat( res = [...res, ...tmp_rev] );
+    }
+
+    return res;
+}
+
+/* Sorting functions*/
+
+function mergeSort(inputArray) {
 
     function merge(left, right){
         let result = [];
@@ -38,12 +152,13 @@ let merge_sort = function(array){
         let right = items.slice(middle);
         return merge(merge_sort(left), merge_sort(right));
     }
-    return merge_sort(array);
-};
+    const arrayCopy = inputArray.concat([]);
 
-//======================================================================
+    return merge_sort(arrayCopy);
+}
 
-let selectionSort = (arr) => {
+function selectionSort(inputArray) {
+    let arr = inputArray.concat([]);
     let len = arr.length;
     for (let i = 0; i < len; i++) {
         let min = i;
@@ -58,12 +173,12 @@ let selectionSort = (arr) => {
             arr[min] = tmp;
         }
     }
+
     return arr;
-};
+}
 
-//======================================================================
-
-const insertionSort = arr => {
+function insertionSort(inputArray) {
+    let arr = inputArray.concat([]);
     const len = arr.length;
     for (let i = 0; i < len; i++) {
         let el = arr[i];
@@ -74,24 +189,210 @@ const insertionSort = arr => {
         }
         arr[j + 1] = el;
     }
+
     return arr;
-};
+}
 
-//=================================================
-
-let bubbleSort = (inputArr) => {
-    let len = inputArr.length;
+function bubbleSort(inputArr) {
+    const arrCopy = inputArr.concat([]);
+    let len = arrCopy.length;
     let swapped;
     do {
         swapped = false;
         for (let i = 0; i < len; i++) {
-            if (inputArr[i] > inputArr[i + 1]) {
-                let tmp = inputArr[i];
-                inputArr[i] = inputArr[i + 1];
-                inputArr[i + 1] = tmp;
+            if (arrCopy[i] > arrCopy[i + 1]) {
+                let tmp = arrCopy[i];
+                arrCopy[i] = arrCopy[i + 1];
+                arrCopy[i + 1] = tmp;
                 swapped = true;
             }
         }
     } while (swapped);
-    return inputArr;
-};
+
+    return arrCopy;
+}
+
+function shakerSort(inputArr) {
+    const arrCopy = inputArr.concat([]);
+    let is_Sorted = true;
+    while (is_Sorted) {
+        for (let i = 0; i < arrCopy.length - 1; i++) {
+            if (arrCopy[i] > arrCopy[i + 1]) {
+                let temp = arrCopy[i];
+                arrCopy[i] = arrCopy[i + 1];
+                arrCopy[i + 1] = temp;
+                is_Sorted = true;
+            }
+        }
+
+        if (!is_Sorted)
+            break;
+
+        is_Sorted = false;
+
+        for (let j = arrCopy.length - 1; j > 0; j--) {
+            if (arrCopy[j - 1] > arrCopy[j]) {
+                let temp = arrCopy[j];
+                arrCopy[j] = arrCopy[j - 1];
+                arrCopy[j - 1] = temp;
+                is_Sorted = true;
+            }
+        }
+    }
+
+    return arrCopy;
+}
+
+function quickSort(inputArr) {
+    function swap(items, leftIndex, rightIndex){
+        let temp = items[leftIndex];
+        items[leftIndex] = items[rightIndex];
+        items[rightIndex] = temp;
+    }
+
+    function partition(items, left, right) {
+        let pivot   = items[Math.floor((right + left) / 2)], //middle element
+            i       = left, //left pointer
+            j       = right; //right pointer
+        while (i <= j) {
+            while (items[i] < pivot) {
+                i++;
+            }
+            while (items[j] > pivot) {
+                j--;
+            }
+            if (i <= j) {
+                swap(items, i, j); //sawpping two elements
+                i++;
+                j--;
+            }
+        }
+
+        return i;
+    }
+
+    let quickSortFunc = (items, left, right) => {
+        let index;
+        if (items.length > 1) {
+            index = partition(items, left, right); //index returned from partition
+            if (left < index - 1) { //more elements on the left side of the pivot
+                quickSortFunc(items, left, index - 1);
+            }
+            if (index < right) { //more elements on the right side of the pivot
+                quickSortFunc(items, index, right);
+            }
+        }
+
+        return items;
+    };
+// first call to quick sort
+    let arrCopy = inputArr.concat([]);
+
+    return quickSortFunc(arrCopy, 0, inputArr.length - 1);
+}
+
+function combSort(inputArr) {
+    function is_array_sorted (arr) {
+        let sorted = true;
+        for (let i = 0; i < arr.length - 1; i++) {
+            if (arr[i] > arr[i + 1]) {
+                sorted = false;
+                break;
+            }
+        }
+        return sorted;
+    }
+
+    let arrCopy = inputArr.concat([]);
+    let iteration_count = 0;
+    let gap = arrCopy.length - 2;
+    let decrease_factor = 1.25;
+
+    // Repeat iterations Until array is not sorted
+
+    while (!is_array_sorted(arrCopy))
+    {
+        // If not first gap  Calculate gap
+        if (iteration_count > 0)
+            gap = (gap === 1) ? gap : Math.floor(gap / decrease_factor);
+
+        // Set front and back elements and increment to a gap
+        let front = 0;
+        let back = gap;
+        while (back <= arrCopy.length - 1)
+        {
+            // Swap the elements if they are not ordered
+
+            if (arrCopy[front] > arrCopy[back])
+            {
+                let temp = arrCopy[front];
+                arrCopy[front] = arrCopy[back];
+                arrCopy[back] = temp;
+            }
+
+            // Increment and re-run swapping
+
+            front += 1;
+            back += 1;
+        }
+        iteration_count += 1;
+    }
+
+    return arrCopy;
+}
+
+
+function shellSort(arr) {
+    let increment = arr.length / 2;
+    while (increment > 0) {
+        for (i = increment; i < arr.length; i++) {
+            let j = i;
+            let temp = arr[i];
+
+            while (j >= increment && arr[j-increment] > temp) {
+                arr[j] = arr[j-increment];
+                j = j - increment;
+            }
+
+            arr[j] = temp;
+        }
+
+        if (increment === 2) {
+            increment = 1;
+        } else {
+            increment = parseInt(increment*5 / 11);
+        }
+    }
+    return arr;
+}
+
+function logAllSorts(array) {
+    console.log("Bubble:" + bubbleSort(array));
+    console.log("Shaker: " + shakerSort(array));
+    console.log("Quick: " + quickSort(array));
+    console.log("Comb: " + combSort(array));
+    console.log("Selection: " + selectionSort(array));
+    console.log("Insertion: " + insertionSort(array));
+    console.log("Shell: " + shellSort(array));
+    console.log("Merge: " + mergeSort(array));
+}
+
+
+function testAll(size) {
+    const random = generateRandomArray(size);
+    const reversed = generateReverseArray(size);
+    const clustered = generateClusteredArray(size);
+    const almostSorted = generateAlmostSortedArray(size);
+    const fewUnique = generateFewUniqueArray(size);
+
+    console.log("   Random:");
+    logAllSorts(random);
+    console.log("   Reversed:");
+    logAllSorts(reversed);
+    console.log("   Clustered:");
+    logAllSorts(clustered);
+    console.log("   AlmostSorted:");
+    logAllSorts(almostSorted);
+    console.log("   FewUnique:");
+    logAllSorts(fewUnique);
+}
