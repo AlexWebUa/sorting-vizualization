@@ -9,11 +9,12 @@ app.listen(port, '127.0.0.1');
 app.use(express.static(__dirname));
 
 app.use(bodyParser);
+
 app.get('/', (request, response) => {
-    response.sendFile(path.join(__dirname+'/index.html'));
+    response.sendFile(path.join(__dirname + '/index.html'));
 });
 
-app.get('/js/algorithms.js',function(req,res) {
+app.get('/js/algorithms.js', function (req, res) {
     res.sendFile(path.join(__dirname + '/js/algorithms.js'));
 });
 
@@ -23,7 +24,7 @@ app.post('/sortingOrder', function (req, res) {
         sortType: SortTypes,
         arrType: ArrTypes
     };
-    const  mainSortingFunc = algorithms.mainSortingFunc;
+    const mainSortingFunc = algorithms.mainSortingFunc;
     const response = JSON.stringify(mainSortingFunc(req.body));
     res.send(response);
 });
