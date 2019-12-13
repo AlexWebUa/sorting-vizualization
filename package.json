@@ -28,8 +28,9 @@
   },
   "browserslist": "last 5 versions",
   "dependencies": {
+    "body-parser": "latest",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "body-parser": "latest"
+    "serve-favicon": "^2.5.0"
   }
 }

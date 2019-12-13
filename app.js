@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
 const app = express();
 const port = 3000;
@@ -13,7 +14,7 @@ app.use((req, res, next) => {
     console.log(req.url);
     next();
 });
-
+app.use(favicon(__dirname + '/assets/images/favicon.ico'));
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');

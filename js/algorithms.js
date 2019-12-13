@@ -60,78 +60,8 @@ function generateFewUniqueArray(size) {
 
 /* Sorting functions*/
 
-function mergeSort(inputArray) {
-
-    function merge(left, right) {
-        let result = [];
-        let il = 0;
-        let ir = 0;
-        while (il < left.length && ir < right.length) {
-            if (left[il] < right[ir]) {
-                result.push(left[il++]);
-            } else {
-                result.push(right[ir++]);
-            }
-        }
-
-        //merge what is left
-        return result.concat(left.slice(il)).concat(right.slice(ir));
-    }
-
-    function merge_sort(items) {
-        //well it is only 1 element
-        if (items.length < 2) {
-            return items;
-        }
-        let middle = Math.floor(items.length / 2);
-        //create two arrays
-        let left = items.slice(0, middle);
-        let right = items.slice(middle);
-        return merge(merge_sort(left), merge_sort(right));
-    }
-
-    const arrayCopy = inputArray.concat([]);
-
-    return merge_sort(arrayCopy);
-}
-
-function selectionSort(inputArray) {
-    let arr = inputArray.concat([]);
-    let len = arr.length;
-    for (let i = 0; i < len; i++) {
-        let min = i;
-        for (let j = i + 1; j < len; j++) {
-            if (arr[min] > arr[j]) {
-                min = j;
-            }
-        }
-        if (min !== i) {
-            let tmp = arr[i];
-            arr[i] = arr[min];
-            arr[min] = tmp;
-        }
-    }
-
-    return arr;
-}
-
-function insertionSort(inputArray) {
-    let arr = inputArray.concat([]);
-    const len = arr.length;
-    for (let i = 0; i < len; i++) {
-        let el = arr[i];
-        let j;
-
-        for (j = i - 1; j >= 0 && arr[j] > el; j--) {
-            arr[j + 1] = arr[j];
-        }
-        arr[j + 1] = el;
-    }
-
-    return arr;
-}
-
 function bubbleSort(inputArr) {
+    console.log("Entering bubble sort");
     const arrCopy = inputArr.concat([]);
     let len = arrCopy.length;
     let swapped;
@@ -151,6 +81,7 @@ function bubbleSort(inputArr) {
 }
 
 function shakerSort(inputArr) {
+    console.log("Entering shaker sort");
     const arrCopy = inputArr.concat([]);
     let is_Sorted = true;
     while (is_Sorted) {
@@ -182,6 +113,7 @@ function shakerSort(inputArr) {
 }
 
 function quickSort(inputArr) {
+    console.log("Entering quick sort");
     function swap(items, leftIndex, rightIndex) {
         let temp = items[leftIndex];
         items[leftIndex] = items[rightIndex];
@@ -230,6 +162,7 @@ function quickSort(inputArr) {
 }
 
 function combSort(inputArr) {
+    console.log("Entering comb sort");
     function is_array_sorted(arr) {
         let sorted = true;
         for (let i = 0; i < arr.length - 1; i++) {
@@ -276,8 +209,46 @@ function combSort(inputArr) {
     return arrCopy;
 }
 
+function selectionSort(inputArray) {
+    console.log("Entering selection sort");
+    let arr = inputArray.concat([]);
+    let len = arr.length;
+    for (let i = 0; i < len; i++) {
+        let min = i;
+        for (let j = i + 1; j < len; j++) {
+            if (arr[min] > arr[j]) {
+                min = j;
+            }
+        }
+        if (min !== i) {
+            let tmp = arr[i];
+            arr[i] = arr[min];
+            arr[min] = tmp;
+        }
+    }
+
+    return arr;
+}
+
+function insertionSort(inputArray) {
+    console.log("Entering insertion sort");
+    let arr = inputArray.concat([]);
+    const len = arr.length;
+    for (let i = 0; i < len; i++) {
+        let el = arr[i];
+        let j;
+
+        for (j = i - 1; j >= 0 && arr[j] > el; j--) {
+            arr[j + 1] = arr[j];
+        }
+        arr[j + 1] = el;
+    }
+
+    return arr;
+}
 
 function shellSort(arr) {
+    console.log("Entering shell sort");
     let increment = arr.length / 2;
     while (increment > 0) {
         for (let i = increment; i < arr.length; i++) {
@@ -295,21 +266,49 @@ function shellSort(arr) {
         if (increment === 2) {
             increment = 1;
         } else {
-            increment = parseInt(increment * 5 / 11);
+            // increment = parseInt(increment * 5 / 11);
+            increment = (increment * 5 / 11);
         }
     }
     return arr;
 }
 
-/* Client interacting */
+function mergeSort(inputArray) {
+    console.log("Entering merge sort");
+    function merge(left, right) {
+        let result = [];
+        let il = 0;
+        let ir = 0;
+        while (il < left.length && ir < right.length) {
+            if (left[il] < right[ir]) {
+                result.push(left[il++]);
+            } else {
+                result.push(right[ir++]);
+            }
+        }
 
-function generateArrays(size) {
-    const random = generateRandomArray(size);
-    const reversed = generateReverseArray(size);
-    const clustered = generateClusteredArray(size);
-    const almostSorted = generateAlmostSortedArray(size);
-    const fewUnique = generateFewUniqueArray(size);
+        //merge what is left
+        return result.concat(left.slice(il)).concat(right.slice(ir));
+    }
+
+    function merge_sort(items) {
+        //well it is only 1 element
+        if (items.length < 2) {
+            return items;
+        }
+        let middle = Math.floor(items.length / 2);
+        //create two arrays
+        let left = items.slice(0, middle);
+        let right = items.slice(middle);
+        return merge(merge_sort(left), merge_sort(right));
+    }
+
+    const arrayCopy = inputArray.concat([]);
+
+    return merge_sort(arrayCopy);
 }
+
+/* Client interacting */
 
 class Sorter{
     constructor(size) {
@@ -322,7 +321,7 @@ class Sorter{
             method: "POST",
             dataType: "json",
             contentType: 'application/json',
-            data: JSON.stringify({1: this.randomArray, 2: this.revresedArray, 3: this.clusteredArray, 4: this.almostSortedArray, 5: this.fewUniqueArray}),
+            data: JSON.stringify({1: this.randomArray, 2: this.reversedArray, 3: this.clusteredArray, 4: this.almost_sortedArray, 5: this.few_uniqueArray}),
             success: (data) => {
                 let d = JSON.parse(data);
                 console.log("%cResponse from server: ", "color: green; font-size: 24px;", d);
@@ -339,59 +338,46 @@ class Sorter{
     }
 
     shuffle(size) {
-        this.randomArray        = generateRandomArray(size);
-        this.revresedArray      = generateReverseArray(size);
-        this.clusteredArray     = generateClusteredArray(size);
-        this.almostSortedArray  = generateAlmostSortedArray(size);
-        this.fewUniqueArray     = generateFewUniqueArray(size);
+        this.randomArray         = generateRandomArray(size);
+        this.reversedArray       = generateReverseArray(size);
+        this.clusteredArray      = generateClusteredArray(size);
+        this.almost_sortedArray  = generateAlmostSortedArray(size);
+        this.few_uniqueArray     = generateFewUniqueArray(size);
         this.updateArrayStates();
     }
+
+    doAllSorts(array) {
+        bubbleSort(array);
+        shakerSort(array);
+        quickSort(array);
+        combSort(array);
+        selectionSort(array);
+        insertionSort(array);
+        shellSort(array);
+        mergeSort(array);
+    }
+
+    playAll() {
+        this.doAllSorts(this.randomArray);
+        this.doAllSorts(this.reversedArray);
+        this.doAllSorts(this.clusteredArray);
+        this.doAllSorts(this.almost_sortedArray);
+        this.doAllSorts(this.few_uniqueArray);
+    }
+
+    playArray(functionType) {
+        let arrayType = functionType.toLowerCase() + "Array";
+        let code = "this.doAllSorts(this." + arrayType + ");";
+        eval(code);
+    }
+
+    playAlgorithm(functionType) {
+        let algorithmType = functionType.toLowerCase() + "Sort";
+        eval(algorithmType + "(this.randomArray);" +
+            algorithmType + "(this.reversedArray);" +
+            algorithmType + "(this.clusteredArray);" +
+            algorithmType + "(this.almost_sortedArray);" +
+            algorithmType + "(this.few_uniqueArray);"
+        );
+    }
 }
-
-function logAllSorts(array) {
-    console.log("Bubble:" + bubbleSort(array));
-    console.log("Shaker: " + shakerSort(array));
-    console.log("Quick: " + quickSort(array));
-    console.log("Comb: " + combSort(array));
-    console.log("Selection: " + selectionSort(array));
-    console.log("Insertion: " + insertionSort(array));
-    console.log("Shell: " + shellSort(array));
-    console.log("Merge: " + mergeSort(array));
-}
-
-
-function testAll(size) {
-    const random = generateRandomArray(size);
-    const reversed = generateReverseArray(size);
-    const clustered = generateClusteredArray(size);
-    const almostSorted = generateAlmostSortedArray(size);
-    const fewUnique = generateFewUniqueArray(size);
-
-    console.log("   Random:");
-    logAllSorts(random);
-    console.log("   Reversed:");
-    logAllSorts(reversed);
-    console.log("   Clustered:");
-    logAllSorts(clustered);
-    console.log("   AlmostSorted:");
-    logAllSorts(almostSorted);
-    console.log("   FewUnique:");
-    logAllSorts(fewUnique);
-}
-
-// ==================== TEST REQUEST =====================
-/*const req = {
-    arrLength: 10,
-    sortType: SortTypes,
-    arrType: ArrTypes
-};*/
-
-/*fetch('http://localhost:3000/sortingOrder', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(req)
-}).then((res) => res.json())
-    .then((res) => console.log('MY RESULT FROM SERVER', res))
-    .catch((er) => console.log(er));*/
