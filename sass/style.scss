@@ -115,10 +115,13 @@ body {
                         padding: 5px;
                         margin: 0 0 0 -1px;
                         border: 1px solid $main-blue;
-
                         &:hover {
                             background-color: $hover-gray;
                         }
+                    }
+
+                    .active {
+                        background-color: $hover-gray;
                     }
                 }
             }

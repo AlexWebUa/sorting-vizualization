@@ -1,25 +1,3 @@
-/* Enum */
-const SortTypes = Object.freeze({
-    ALL: 0,
-    BUBBLE: 1,
-    SHAKER: 2,
-    QUICK: 3,
-    COMB: 4,
-    SELECTION: 5,
-    INSERTION: 6,
-    SHELL: 7,
-    MERGE: 8
-});
-
-const ArrTypes = Object.freeze({
-    ALL: 0,
-    RANDOM: 1,
-    REVERSED: 2,
-    CLUSTERED: 3,
-    ALMOST_SORTED: 4,
-    FEW_UNIQUE: 5
-});
-
 /* Generating arrays */
 
 function generateRandomArray(size) {
@@ -80,18 +58,6 @@ function generateAlmostSortedArray(size) {
 }
 
 function generateFewUniqueArray(size) {
-    /*const cluster = size / 10;
-    let tmp = generateRandomArray(cluster);
-    let tmp_rev = reverseArray(tmp);
-    let res = [];
-
-    for (let i = 0; i < size / cluster; i++) {
-        if (i % 2) res = [...res, ...tmp];
-        else res.concat(res = [...res, ...tmp_rev]);
-    }
-
-    return res;*/
-
     const array = [];
     let rnd;
 
@@ -345,6 +311,51 @@ function shellSort(arr) {
     return arr;
 }
 
+/* Client interacting */
+
+function generateArrays(size) {
+    const random = generateRandomArray(size);
+    const reversed = generateReverseArray(size);
+    const clustered = generateClusteredArray(size);
+    const almostSorted = generateAlmostSortedArray(size);
+    const fewUnique = generateFewUniqueArray(size);
+}
+
+class Sorter{
+    constructor(size) {
+        this.shuffle(size);
+    }
+
+    updateArrayStates() {
+        $.ajax(({
+            url: "http://localhost:3000/sortingOrder",
+            method: "POST",
+            dataType: "json",
+            contentType: 'application/json',
+            data: JSON.stringify({1: this.randomArray, 2: this.revresedArray, 3: this.clusteredArray, 4: this.almostSortedArray, 5: this.fewUniqueArray}),
+            success: (data) => {
+                let d = JSON.parse(data);
+                console.log("%cResponse from server: ", "color: green; font-size: 24px;", d);
+                for(let key in d) {
+                    console.log(`${ArrTypes[key]}: ${d[key]}`);
+                }
+            },
+            error: (msg) => {
+                console.log("Error from server: ", msg);
+            }
+        }))
+    }
+
+    shuffle(size) {
+        this.randomArray        = generateRandomArray(size);
+        this.revresedArray      = generateReverseArray(size);
+        this.clusteredArray     = generateClusteredArray(size);
+        this.almostSortedArray  = generateAlmostSortedArray(size);
+        this.fewUniqueArray     = generateFewUniqueArray(size);
+        this.updateArrayStates();
+    }
+}
+
 function logAllSorts(array) {
     console.log("Bubble:" + bubbleSort(array));
     console.log("Shaker: " + shakerSort(array));
@@ -377,13 +388,13 @@ function testAll(size) {
 }
 
 // ==================== TEST REQUEST =====================
-const req = {
+/*const req = {
     arrLength: 10,
     sortType: SortTypes,
     arrType: ArrTypes
-};
+};*/
 
-fetch('http://localhost:3000/sortingOrder', {
+/*fetch('http://localhost:3000/sortingOrder', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
@@ -391,4 +402,4 @@ fetch('http://localhost:3000/sortingOrder', {
     body: JSON.stringify(req)
 }).then((res) => res.json())
     .then((res) => console.log('MY RESULT FROM SERVER', res))
-    .catch((er) => console.log(er));
+    .catch((er) => console.log(er));*/
