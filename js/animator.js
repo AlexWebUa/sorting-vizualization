@@ -1,5 +1,4 @@
 const shuffleButton = document.getElementById("shuffle");
-const test = document.getElementById("test");
 const arrayControlButtons = document.getElementById("array-size").getElementsByClassName("btn-group")[0].getElementsByClassName("btn");
 const sorter = new Sorter(10);
 
@@ -17,10 +16,6 @@ function clearActives() {
 
 document.addEventListener("DOMContentLoaded", () => {
     // console.log("i'm ready");
-});
-
-test.addEventListener("click", ev => {
-    testAll(20);
 });
 
 shuffleButton.addEventListener("click", () => {

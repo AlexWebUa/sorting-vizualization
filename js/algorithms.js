@@ -12,15 +12,6 @@ function generateRandomArray(size) {
     return array;
 }
 
-function reverseArray(arr) {
-    let newArr = [];
-    for (let i = arr.length - 1; i >= 0; i--) {
-        newArr.push(arr[i]);
-    }
-
-    return newArr;
-}
-
 function generateStandartArray(size) {
     let arr = [];
     for (let i = 1; i <= size; i++) arr.push(i);
@@ -59,7 +50,6 @@ function generateAlmostSortedArray(size) {
 
 function generateFewUniqueArray(size) {
     const array = [];
-    let rnd;
 
     while (array.length < size) {
         array.push( Math.floor(Math.random() * size) + 1 );
@@ -290,7 +280,7 @@ function combSort(inputArr) {
 function shellSort(arr) {
     let increment = arr.length / 2;
     while (increment > 0) {
-        for (i = increment; i < arr.length; i++) {
+        for (let i = increment; i < arr.length; i++) {
             let j = i;
             let temp = arr[i];
 
@@ -337,7 +327,9 @@ class Sorter{
                 let d = JSON.parse(data);
                 console.log("%cResponse from server: ", "color: green; font-size: 24px;", d);
                 for(let key in d) {
-                    console.log(`${ArrTypes[key]}: ${d[key]}`);
+                    if(d.hasOwnProperty(key)) {
+                        console.log(`${ArrTypes[key]}: ${d[key]}`);
+                    }
                 }
             },
             error: (msg) => {
