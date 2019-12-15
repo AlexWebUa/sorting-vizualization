@@ -9,7 +9,17 @@ class Sorter{
     }
 
     updateArrayStates() {
-        console.log("here will be rendering...");
+        let arrays = [this.randomArray, this.reversedArray, this.clusteredArray, this.almost_sortedArray, this.few_uniqueArray];
+        for(let i = 0; i < arrays.length; i++) {
+            renderCell(arrays[i], bubbleLine[i]);
+            renderCell(arrays[i], shakerLine[i]);
+            renderCell(arrays[i], quickLine[i]);
+            renderCell(arrays[i], combLine[i]);
+            renderCell(arrays[i], selectionLine[i]);
+            renderCell(arrays[i], insertionLine[i]);
+            renderCell(arrays[i], shellLine[i]);
+            renderCell(arrays[i], mergeLine[i]);
+        }
     }
 
     shuffle(size) {
@@ -48,7 +58,6 @@ class Sorter{
             success: (data) => {
                 let d = JSON.parse(data);
                 console.log(d);
-                //console.log(`Sorted by ${d.functionType}: \ninitial array: ${d.arrays[0]}\nresult: ${d.result[0]}`);
             },
             error: (msg) => {
                 console.log("Error from server: ", msg);
@@ -93,4 +102,46 @@ class Sorter{
             few_uniqueArray: this.few_uniqueArray
         });
     }
+}
+
+/* Helping stuff */
+
+const cells = document.getElementsByClassName("canvas-cell");
+let bubbleLine = [], shakerLine = [], quickLine = [], combLine = [], selectionLine = [], insertionLine = [], shellLine = [], mergeLine = [];
+
+// Dividing cells into lines
+for( let i = 0;  i < 40; i++ ) {
+    if ( i >= 0 && i <= 4 ) bubbleLine.push(cells[i]);
+    if ( i >= 5 && i <= 9 ) shakerLine.push(cells[i]);
+    if ( i >= 10 && i <= 14 ) quickLine.push(cells[i]);
+    if ( i >= 15 && i <= 19 ) combLine.push(cells[i]);
+    if ( i >= 20 && i <= 24 ) selectionLine.push(cells[i]);
+    if ( i >= 25 && i <= 29 ) insertionLine.push(cells[i]);
+    if ( i >= 30 && i <= 34 ) shellLine.push(cells[i]);
+    if ( i >= 35 && i <= 39 ) mergeLine.push(cells[i]);
+}
+
+function renderCell(array, cell) {
+    let cellWidth = parseInt(cell.offsetWidth) - 10;
+    let itemsNumber = array.length;
+    let minNumber = Math.min(...array);
+    let maxNumber = Math.max(...array);
+    let minWidth = "5px";
+    let maxWidth = cellWidth - 10;
+    let ul = document.createElement("ul");
+    for(let i = 0; i < array.length; i++) {
+        let li = document.createElement("li");
+        li.style.height = "2px";
+        if(itemsNumber > 20) {
+            li.style.height = "1px";
+            li.style.marginBottom = "1px";
+        }
+        li.setAttribute("data-value", array[i]);
+        if (array[i] === minNumber) li.style.width = minWidth;
+        else if(array[i] === maxNumber) li.style.width = maxWidth + "px";
+        else li.style.width = ((array[i] / maxNumber) * maxWidth) + "px";
+        ul.appendChild(li);
+    }
+    cell.innerHTML = "";
+    cell.appendChild(ul);
 }

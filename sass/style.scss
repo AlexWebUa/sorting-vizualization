@@ -182,6 +182,20 @@ body {
                         color: lighten($main-blue, 15);
                     }
                 }
+
+                .canvas-cell {
+                    ul {
+                        height: 100%;
+                        padding: 5px;
+                        list-style: none;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-around;
+                    li {
+                            background: black;
+                        }
+                    }
+                }
             }
         }
 

@@ -27,10 +27,6 @@ function showArrays() {
 
 /* Event listeners */
 
-document.addEventListener("DOMContentLoaded", () => {
-    // console.log("i'm ready");
-});
-
 shuffleButton.addEventListener("click", () => {
     let size = 10;
     for(let button in arrayControlButtons) {
