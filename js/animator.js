@@ -16,6 +16,15 @@ function clearActives() {
     }
 }
 
+function showArrays() {
+    console.log(`    randomArray: ${sorter.randomArray}
+    reversedArray: ${sorter.reversedArray}
+    clusteredArray: ${sorter.clusteredArray}
+    almost_sortedArray: ${sorter.almost_sortedArray}
+    few_uniqueArray: ${sorter.few_uniqueArray}
+    `);
+}
+
 /* Event listeners */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -66,3 +75,5 @@ for(let button in playAlgorithms) {
         })
     }
 }
+
+//todo: add pop-up event listeners
