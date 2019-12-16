@@ -57,7 +57,225 @@ class Sorter{
             data: JSON.stringify({functionType: functionType, arrays: arrays}),
             success: (data) => {
                 let d = JSON.parse(data);
-                console.log(d);
+                let speed = 300;
+                // HARDCODE!!!
+                if(d.result.randomArray.length > 20) speed = 100;
+                if (functionType === "bubbleSort") {
+                    if(d.result.randomArray) {
+                        d.result.randomArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, bubbleLine[0]);
+                        } );
+                    }
+                    if(d.result.reversedArray) {
+                        d.result.reversedArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, bubbleLine[1]);
+                        } );
+                    }
+                    if(d.result.clusteredArray) {
+                        d.result.clusteredArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, bubbleLine[2]);
+                        } );
+                    }
+                    if(d.result.almost_sortedArray) {
+                        d.result.almost_sortedArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, bubbleLine[3]);
+                        } );
+                    }
+                    if(d.result.few_uniqueArray) {
+                        d.result.few_uniqueArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, bubbleLine[4]);
+                        } );
+                    }
+                }
+                else if (functionType === "shakerSort") {
+                    if(d.result.randomArray) {
+                        d.result.randomArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, shakerLine[0]);
+                        } );
+                    }
+                    if(d.result.reversedArray) {
+                        d.result.reversedArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, shakerLine[1]);
+                        } );
+                    }
+                    if(d.result.clusteredArray) {
+                        d.result.clusteredArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, shakerLine[2]);
+                        } );
+                    }
+                    if(d.result.almost_sortedArray) {
+                        d.result.almost_sortedArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, shakerLine[3]);
+                        } );
+                    }
+                    if(d.result.few_uniqueArray) {
+                        d.result.few_uniqueArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, shakerLine[4]);
+                        } );
+                    }
+                }
+                else if (functionType === "quickSort") {
+                    if(d.result.randomArray) {
+                        d.result.randomArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, quickLine[0]);
+                        } );
+                    }
+                    if(d.result.reversedArray) {
+                        d.result.reversedArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, quickLine[1]);
+                        } );
+                    }
+                    if(d.result.clusteredArray) {
+                        d.result.clusteredArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, quickLine[2]);
+                        } );
+                    }
+                    if(d.result.almost_sortedArray) {
+                        d.result.almost_sortedArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, quickLine[3]);
+                        } );
+                    }
+                    if(d.result.few_uniqueArray) {
+                        d.result.few_uniqueArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, quickLine[4]);
+                        } );
+                    }
+                }
+                else if (functionType === "combSort") {
+                    if(d.result.randomArray) {
+                        d.result.randomArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, combLine[0]);
+                        } );
+                    }
+                    if(d.result.reversedArray) {
+                        d.result.reversedArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, combLine[1]);
+                        } );
+                    }
+                    if(d.result.clusteredArray) {
+                        d.result.clusteredArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, combLine[2]);
+                        } );
+                    }
+                    if(d.result.almost_sortedArray) {
+                        d.result.almost_sortedArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, combLine[3]);
+                        } );
+                    }
+                    if(d.result.few_uniqueArray) {
+                        d.result.few_uniqueArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, combLine[4]);
+                        } );
+                    }
+                }
+                else if (functionType === "selectionSort") {
+                    if(d.result.randomArray) {
+                        d.result.randomArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, selectionLine[0]);
+                        } );
+                    }
+                    if(d.result.reversedArray) {
+                        d.result.reversedArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, selectionLine[1]);
+                        } );
+                    }
+                    if(d.result.clusteredArray) {
+                        d.result.clusteredArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, selectionLine[2]);
+                        } );
+                    }
+                    if(d.result.almost_sortedArray) {
+                        d.result.almost_sortedArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, selectionLine[3]);
+                        } );
+                    }
+                    if(d.result.few_uniqueArray) {
+                        d.result.few_uniqueArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, selectionLine[4]);
+                        } );
+                    }
+                }
+                else if (functionType === "insertionSort") {
+                    if(d.result.randomArray) {
+                        d.result.randomArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, insertionLine[0]);
+                        } );
+                    }
+                    if(d.result.reversedArray) {
+                        d.result.reversedArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, insertionLine[1]);
+                        } );
+                    }
+                    if(d.result.clusteredArray) {
+                        d.result.clusteredArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, insertionLine[2]);
+                        } );
+                    }
+                    if(d.result.almost_sortedArray) {
+                        d.result.almost_sortedArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, insertionLine[3]);
+                        } );
+                    }
+                    if(d.result.few_uniqueArray) {
+                        d.result.few_uniqueArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, insertionLine[4]);
+                        } );
+                    }
+                }
+                else if (functionType === "shellSort") {
+                    if(d.result.randomArray) {
+                        d.result.randomArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, shellLine[0]);
+                        } );
+                    }
+                    if(d.result.reversedArray) {
+                        d.result.reversedArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, shellLine[1]);
+                        } );
+                    }
+                    if(d.result.clusteredArray) {
+                        d.result.clusteredArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, shellLine[2]);
+                        } );
+                    }
+                    if(d.result.almost_sortedArray) {
+                        d.result.almost_sortedArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, shellLine[3]);
+                        } );
+                    }
+                    if(d.result.few_uniqueArray) {
+                        d.result.few_uniqueArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, shellLine[4]);
+                        } );
+                    }
+                }
+                else if (functionType === "mergeSort") {
+                    if(d.result.randomArray) {
+                        d.result.randomArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, mergeLine[0]);
+                        } );
+                    }
+                    if(d.result.reversedArray) {
+                        d.result.reversedArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, mergeLine[1]);
+                        } );
+                    }
+                    if(d.result.clusteredArray) {
+                        d.result.clusteredArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, mergeLine[2]);
+                        } );
+                    }
+                    if(d.result.almost_sortedArray) {
+                        d.result.almost_sortedArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, mergeLine[3]);
+                        } );
+                    }
+                    if(d.result.few_uniqueArray) {
+                        d.result.few_uniqueArray.forEach( (arr, i) => {
+                            setTimeout(renderCell, i * speed, arr, mergeLine[4]);
+                        } );
+                    }
+                }
             },
             error: (msg) => {
                 console.log("Error from server: ", msg);

@@ -42,9 +42,7 @@ app.post('/doSort', cors(), (req, res) => {
     let functionType = req.body.functionType;
     let arrays = req.body.arrays;
     let result = {};
-    console.log(functionType + ":");
     for(let array of Object.keys(arrays)) {
-        console.log(`${array}: ${arrays[array]}`);
         result[array] = eval(functionType + "(" + [...arrays[array]] + ");");
     }
     res.json(JSON.stringify({
@@ -126,8 +124,9 @@ function generateFewUniqueArray(size) {
 /* Sorting functions*/
 
 function bubbleSort(...inputArr) {
-    console.log("Entering bubble sort");
     const arrCopy = inputArr.concat([]);
+    const finalArr = [];
+    let counter = 0;
     let len = arrCopy.length;
     let swapped;
     do {
@@ -140,14 +139,17 @@ function bubbleSort(...inputArr) {
                 swapped = true;
             }
         }
+        finalArr[counter] = [...arrCopy];
+        counter++;
     } while (swapped);
 
-    return arrCopy;
+    return finalArr;
 }
 
 function shakerSort(...inputArr) {
-    console.log("Entering shaker sort");
     const arrCopy = inputArr.concat([]);
+    const finalArr = [];
+    let counter = 0;
     let is_Sorted = true;
     while (is_Sorted) {
         for (let i = 0; i < arrCopy.length - 1; i++) {
@@ -172,17 +174,23 @@ function shakerSort(...inputArr) {
                 is_Sorted = true;
             }
         }
+        finalArr[counter] = [...arrCopy];
+        counter++;
     }
 
-    return arrCopy;
+    return finalArr;
 }
 
 function quickSort(...inputArr) {
-    console.log("Entering quick sort");
+    const finalArr = [];
+    let counter = 0;
     function swap(items, leftIndex, rightIndex) {
         let temp = items[leftIndex];
         items[leftIndex] = items[rightIndex];
         items[rightIndex] = temp;
+
+        finalArr[counter] = [...items];
+        counter++;
     }
 
     function partition(items, left, right) {
@@ -202,7 +210,6 @@ function quickSort(...inputArr) {
                 j--;
             }
         }
-
         return i;
     }
 
@@ -217,17 +224,16 @@ function quickSort(...inputArr) {
                 quickSortFunc(items, index, right);
             }
         }
-
-        return items;
     };
 // first call to quick sort
     let arrCopy = inputArr.concat([]);
-
-    return quickSortFunc(arrCopy, 0, inputArr.length - 1);
+    quickSortFunc(arrCopy, 0, inputArr.length - 1);
+    return finalArr;
 }
 
 function combSort(...inputArr) {
-    console.log("Entering comb sort");
+    const finalArr = [];
+    let counter = 0;
     function is_array_sorted(arr) {
         let sorted = true;
         for (let i = 0; i < arr.length - 1; i++) {
@@ -269,13 +275,16 @@ function combSort(...inputArr) {
             back += 1;
         }
         iteration_count += 1;
+        finalArr[counter] = [...arrCopy];
+        counter++;
     }
 
-    return arrCopy;
+    return finalArr;
 }
 
 function selectionSort(...inputArray) {
-    console.log("Entering selection sort");
+    const finalArr = [];
+    let counter = 0;
     let arr = inputArray.concat([]);
     let len = arr.length;
     for (let i = 0; i < len; i++) {
@@ -290,13 +299,16 @@ function selectionSort(...inputArray) {
             arr[i] = arr[min];
             arr[min] = tmp;
         }
+        finalArr[counter] = [...arr];
+        counter++;
     }
 
-    return arr;
+    return finalArr;
 }
 
 function insertionSort(...inputArray) {
-    console.log("Entering insertion sort");
+    const finalArr = [];
+    let counter = 0;
     let arr = inputArray.concat([]);
     const len = arr.length;
     for (let i = 0; i < len; i++) {
@@ -307,12 +319,16 @@ function insertionSort(...inputArray) {
             arr[j + 1] = arr[j];
         }
         arr[j + 1] = el;
+        finalArr[counter] = [...arr];
+        counter++;
     }
 
-    return arr;
+    return finalArr;
 }
 
 function shellSort(...inputArray) {
+    const finalArr = [];
+    let counter = 0;
     let arr = inputArray.concat([]);
     let increment = arr.length / 2;
     while(increment >= 1) {
@@ -327,16 +343,17 @@ function shellSort(...inputArray) {
                         swap(arr, currentIndex, swapIndex);
                         currentIndex -= increment;
                         swapIndex -= increment;
+                        finalArr[counter] = [...arr];
+                        counter++;
                     }
                     sortedListLastIndex += increment;
                 }
             }
         }
-
         increment = Math.floor(increment / 2);
     }
 
-    return arr;
+    return finalArr;
 }
 
 function swap(arr, i, j) {
@@ -345,33 +362,9 @@ function swap(arr, i, j) {
     arr[j] = temp;
 }
 
-/*function shellSort(...arr) {
-    console.log("Entering shell sort");
-    let increment = arr.length / 2;
-    while (increment > 0) {
-        for (let i = increment; i < arr.length; i++) {
-            let j = i;
-            let temp = arr[i];
-
-            while (j >= increment && arr[j - increment] > temp) {
-                arr[j] = arr[j - increment];
-                j = j - increment;
-            }
-
-            arr[j] = temp;
-        }
-
-        if (increment === 2) {
-            increment = 1;
-        } else {
-            increment = (increment * 5 / 11);
-        }
-    }
-    return arr;
-}*/
-
 function mergeSort(...inputArray) {
-    console.log("Entering merge sort ");
+    const finalArr = [];
+    let counter = 0;
     function merge(left, right) {
         let result = [];
         let il = 0;
@@ -385,7 +378,10 @@ function mergeSort(...inputArray) {
         }
 
         //merge what is left
-        return result.concat(left.slice(il)).concat(right.slice(ir));
+        let tmp_res = result.concat(left.slice(il)).concat(right.slice(ir));
+        finalArr[counter] = [...tmp_res];
+        counter++;
+        return tmp_res;
     }
 
     function merge_sort(items) {
@@ -401,8 +397,8 @@ function mergeSort(...inputArray) {
     }
 
     const arrayCopy = inputArray.concat([]);
-
-    return merge_sort(arrayCopy);
+    merge_sort(arrayCopy);
+    return finalArr;
 }
 
-//todo: remake sorting functions so that they fill and send .json
+//todo: fix merge sort rendering
