@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -17,7 +17,9 @@
     "url": "https://github.com/AlexWebUa/sorting-vizualization/issues"
   },
   "homepage": "https://github.com/AlexWebUa/sorting-vizualization#readme",
+  "proxy": "http://localhost:3000",
   "devDependencies": {
+    "@babel/preset-env": "^7.7.6",
     "browser-sync": "^2.26.7",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.1",
@@ -26,6 +28,9 @@
   },
   "browserslist": "last 5 versions",
   "dependencies": {
-    "express": "^4.17.1"
+    "body-parser": "latest",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "serve-favicon": "^2.5.0"
   }
 }
