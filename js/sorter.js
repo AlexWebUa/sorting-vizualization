@@ -58,8 +58,9 @@ class Sorter{
             success: (data) => {
                 let d = JSON.parse(data);
                 let speed = 300;
-                // HARDCODE!!!
-                if(d.result.randomArray.length > 20) speed = 100;
+
+                // DANGER, HARDCODE BELOW!!!
+                if(d.result[Object.keys(d.result)[0]].length > 20) speed = 100;
                 if (functionType === "bubbleSort") {
                     if(d.result.randomArray) {
                         d.result.randomArray.forEach( (arr, i) => {
@@ -342,9 +343,7 @@ for( let i = 0;  i < 40; i++ ) {
 function renderCell(array, cell) {
     let cellWidth = parseInt(cell.offsetWidth) - 10;
     let itemsNumber = array.length;
-    let minNumber = Math.min(...array);
     let maxNumber = Math.max(...array);
-    let minWidth = "5px";
     let maxWidth = cellWidth - 10;
     let ul = document.createElement("ul");
     for(let i = 0; i < array.length; i++) {
@@ -355,8 +354,7 @@ function renderCell(array, cell) {
             li.style.marginBottom = "1px";
         }
         li.setAttribute("data-value", array[i]);
-        if (array[i] === minNumber) li.style.width = minWidth;
-        else if(array[i] === maxNumber) li.style.width = maxWidth + "px";
+        if(array[i] === maxNumber) li.style.width = maxWidth + "px";
         else li.style.width = ((array[i] / maxNumber) * maxWidth) + "px";
         ul.appendChild(li);
     }

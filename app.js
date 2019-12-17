@@ -17,11 +17,6 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 
-app.post('/sortingOrder', cors() ,(req, res) => {
-    let requestBody = req.body;
-    res.json(JSON.stringify(requestBody));
-});
-
 app.post('/shuffle', cors() ,(req, res) => {
     let size = req.body.size;
     let randomArray         = generateRandomArray(size);
@@ -362,31 +357,30 @@ function swap(arr, i, j) {
     arr[j] = temp;
 }
 
-function mergeSort(...inputArray) {
+function mergeSort (...arr) {
     const finalArr = [];
     let counter = 0;
-    function merge(left, right) {
+
+    function merge(left, right){
         let result = [];
         let il = 0;
         let ir = 0;
-        while (il < left.length && ir < right.length) {
-            if (left[il] < right[ir]) {
+        while (il < left.length && ir < right.length){
+            if (left[il] < right[ir]){
                 result.push(left[il++]);
             } else {
                 result.push(right[ir++]);
             }
+            finalArr[counter] = [...result];
+            counter++;
         }
 
         //merge what is left
-        let tmp_res = result.concat(left.slice(il)).concat(right.slice(ir));
-        finalArr[counter] = [...tmp_res];
-        counter++;
-        return tmp_res;
+        return result.concat(left.slice(il)).concat(right.slice(ir));
     }
-
-    function merge_sort(items) {
+    function merge_sort(items){
         //well it is only 1 element
-        if (items.length < 2) {
+        if (items.length < 2){
             return items;
         }
         let middle = Math.floor(items.length / 2);
@@ -395,10 +389,7 @@ function mergeSort(...inputArray) {
         let right = items.slice(middle);
         return merge(merge_sort(left), merge_sort(right));
     }
-
-    const arrayCopy = inputArray.concat([]);
-    merge_sort(arrayCopy);
+    finalArr[counter] = merge_sort(arr);
+    counter++;
     return finalArr;
 }
-
-//todo: fix merge sort rendering
